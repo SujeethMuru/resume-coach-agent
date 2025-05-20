@@ -1,0 +1,18 @@
+# Virtual environment
+venv/
+
+# Byte-compiled / cache
+__pycache__/
+*.py[cod]
+
+# Flask logs and DB
+*.log
+*.db
+
+# Editor configs
+.vscode/
+.idea/
+
+# Mac & Windows OS junk
+.DS_Store
+Thumbs.db
