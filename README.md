@@ -29,11 +29,13 @@ resume-coach-agent/
 
 ### 1. Clone the repo
 
-```bash
+```
+bash
 git clone https://github.com/your-username/resume-coach-agent.git
 cd resume-coach-agent
+```
 
-### 2. Create a virtual environment
+## 2. Create a virtual environment
 
 python -m venv venv
 venv\Scripts\activate  # On Windows
