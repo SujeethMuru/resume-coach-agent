@@ -4,72 +4,70 @@ An AI-powered resume feedback tool built with Flask and Ollama, running entirely
 
 ## 🚀 Features
 
-- 🔍 Upload your PDF resume for analysis
-- 🧠 Get AI-generated feedback using local LLMs (`gemma:2b`)
-- 📄 Accepts optional job descriptions to tailor suggestions
-- 🗃 Runs locally, requires no OpenAI keys or internet
+- 📄 Upload your resume (PDF)
+- 🧠 Receive detailed AI-generated feedback
+- ✍️ Paste a job description to tailor suggestions
+- ⏱  ETA countdown
+- 💾 Download feedback as a Markdown (.md) file
+- ⚡ Smart caching to avoid repeat processing
+- 🌐 Live deployed version on Render
+
+## Live Demo
+
+👉 [Visit Live App] (https://resume-coach-agent.onrender.com)
 
 ## 🗂 Project Structure
 ```
 resume-coach-agent/
 ├── backend/
 │ ├── app.py # Flask entrypoint
-│ ├── routes/resume.py # API logic
-│ ├── services/ # AI logic
-│ │ ├── coach.py
-│ │ └── ollama_wrapper.py
-│ ├── utils/resume_parser.py # PDF parsing
-│ └── requirements.txt
-├── data/ # Sample resumes
-├── models/ # Prompt templates
+│ ├── routes/ # API endpoints
+│ ├── services/ # LLM logic + Markdown export
+│ ├── utils/ # PDF parsing + caching
+│ └── templates/ # Frontend UI (HTML)
+├── requirements.txt
+├── render.yaml
 └── README.md
 ```
 
+## Technologies Used
+- Python + Flask
+- Ollama (gemma:2b model)
+- PyMuPDF for PDF parsing
+- Jinja2 templating for frontend
+- JavaScript for UI loading spinner
+- Render for deployment
+
 ## ⚙️ Setup Instructions
 
-### 1. Clone the repo
+### Local Setup
 
-```
+``` 
 bash
-git clone https://github.com/your-username/resume-coach-agent.git
+git clone https://github.com/SujeethMuru/resume-coach-agent.git
 cd resume-coach-agent
-```
-
-### 2. Create a virtual environment
-
 python -m venv venv
-venv\Scripts\activate  # On Windows
-
-### 3. Install dependencies
-
+venv\Scripts\activate
 pip install -r backend/requirements.txt
-
-### 4. Run Ollama
-
-ollama pull gemma:2b
-ollama run gemma:2b
-
-### 5. Start Flask backend
-
+ollama run gemma:2b   # keep this running
 cd backend
 python app.py
+```
+Then visit:
+http://localhost:5000/ui
 
-### 6. Test via Postman or curl
+🧠 How it Works
 
-Send a POST request to:
-http://localhost:5000/api/feedback
+1. User uploads a resume + job description
 
-With either:
+2. Flask sends the input to a locally running LLM via Ollama
 
-- A PDF file (resume) and optional text field (job)
-- Or JSON: { "resume": "...", "job": "..." }
+3. AI generates feedback which is displayed and cached
 
-📌 Example Response:
-{
-  "feedback": "Your resume is clear and well-structured. Use more action verbs..."
-}
+4. Feedback is downloadable as .md without reprocessing
 
 📜 License
 This project is licensed under the MIT License.
 
 ### Made with ❤️ by [Sujeeth](https://github.com/SujeethMuru)
+
