@@ -16,6 +16,9 @@ An AI-powered resume feedback tool built with Flask and Ollama, running entirely
 
 👉 [Visit Live App] (https://resume-coach-agent.onrender.com)
 
+⚠️ Note: Due to Ollama being a local LLM tool, AI feedback is not available in the deployed version.  
+To test it fully, clone the repo and run it locally with Ollama installed.
+
 ## 🗂 Project Structure
 ```
 resume-coach-agent/
@@ -69,6 +72,17 @@ http://localhost:5000/ui
 ## 📜 License
 
 This project is licensed under the MIT License.
+
+## Screenshot (Running Locally with AI feedback)
+
+### 📝 Upload Form
+![Upload Form](assets/upload-form.png)
+
+### 🤖 AI Feedback Output
+![AI Feedback](assets/ai-feedback-result.png)
+
+### Download Button
+![Download Feedback](assets/download-feedback.png)
 
 ### Made with ❤️ by [Sujeeth](https://github.com/SujeethMuru)
 
