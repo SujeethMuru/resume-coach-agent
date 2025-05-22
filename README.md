@@ -56,7 +56,7 @@ python app.py
 Then visit:
 http://localhost:5000/ui
 
-🧠 How it Works
+## 🧠 How it Works
 
 1. User uploads a resume + job description
 
@@ -66,7 +66,8 @@ http://localhost:5000/ui
 
 4. Feedback is downloadable as .md without reprocessing
 
-📜 License
+## 📜 License
+
 This project is licensed under the MIT License.
 
 ### Made with ❤️ by [Sujeeth](https://github.com/SujeethMuru)
