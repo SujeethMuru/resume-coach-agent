@@ -1,0 +1,103 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>Resume Coach Agent</title>
+  <style>
+    body {
+      font-family: Arial, sans-serif;
+      padding: 2rem;
+      max-width: 600px;
+      margin: auto;
+    }
+    h1 {
+      color: #D03D56;
+    }
+    label, textarea, input {
+      display: block;
+      width: 100%;
+      margin-top: 1rem;
+    }
+    .feedback-box {
+      white-space: pre-wrap;
+      background-color: #f4f4f4;
+      padding: 1rem;
+      margin-top: 2rem;
+      border: 1px solid #ccc;
+    }
+  </style>
+</head>
+
+<body>
+
+  <h1>🧠 Resume Coach</h1>
+
+  <div id="loading-box" style="display: none; margin-bottom: 1rem;">
+    <strong>🔄 Generating feedback...</strong>
+    <p id="eta">ETA: 20s</p>
+  </div>
+  <form action="/ui" method="POST" enctype="multipart/form-data">
+    <label for="resume">Upload Resume (PDF):</label>
+    <input type="file" name="resume" accept=".pdf" required>
+
+    <label for="job">Job Description (optional):</label>
+    <textarea name="job" rows="5" placeholder="Paste job description here..."></textarea>
+
+    <input type="submit" value="Get Feedback" style="margin-top: 1.5rem;">
+  </form>
+
+  {% if feedback %}
+    <div class="feedback-box">
+      <h3>✅ AI Feedback:</h3>
+      <pre>{{ feedback }}</pre>
+    </div>
+
+    <form action="/api/download-feedback" method="POST" enctype="multipart/form-data">
+        <input type="hidden" name="resume_text" value="{{ resume_text }}">
+        <input type="hidden" name="job_text" value="{{ job_text }}">
+        <button type="submit" style="margin-top: 1rem;">⬇️ Download Feedback (.md)</button>
+    </form>
+    <P id="download-status" style="display: none; color: #444;">🔄 Preparing download...</P>
+  {% endif %}
+
+  <!-- Spinner + ETA Script -->
+  <script>
+    const form = document.querySelector('form[action="/ui"]');
+    const loadingBox = document.getElementById("loading-box");
+    const etaText = document.getElementById("eta");
+
+    if (form) {
+      const submitButton = form.querySelector('input[type="submit"]');
+
+      form.addEventListener("submit", function () {
+        loadingBox.style.display = "block";
+        submitButton.disabled = true;
+
+        let timeLeft = 20;
+        etaText.innerText = `ETA: ${timeLeft}s`;
+
+        const countdown = setInterval(() => {
+          timeLeft--;
+          etaText.innerText = `ETA: ${timeLeft}s`;
+          if (timeLeft <= 0) {
+            clearInterval(countdown);
+            etaText.innerText = `Almost done...`;
+          }
+        }, 1000);
+      });
+    }
+
+    const downloadForm = document.querySelector('form[action="/api/download-feedback"]');
+    const downloadStatus = document.getElementById("download-status");
+
+    if (downloadForm) {
+      const downloadButton = downloadForm.querySelector('button[type="submit"]');
+
+      downloadForm.addEventListener("submit", function () {
+        downloadStatus.style.display = "block";
+        downloadButton.disabled = true;
+      });
+    }
+  </script>
+</body>
+</html>
